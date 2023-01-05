@@ -8,10 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @EnvironmentObject var loginShow : FirebaseViewModel
+    
     var body: some View {
-        Home()
-            .edgesIgnoringSafeArea(.all)
-            .preferredColorScheme(.dark)
+        
+        return Group {
+            if loginShow.show {
+                Home()
+                    .edgesIgnoringSafeArea(.all)
+                    .preferredColorScheme(.dark)
+            } else {
+                Login()
+            }
+        }
+        
     }
 }
 
