@@ -12,6 +12,7 @@
 		960EE2A72967650E0041EDB4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 960EE2A62967650E0041EDB4 /* FirebaseFirestore */; };
 		960EE2A92967650E0041EDB4 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 960EE2A82967650E0041EDB4 /* FirebaseStorage */; };
 		960EE2AB296765860041EDB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EE2AA296765860041EDB4 /* AppDelegate.swift */; };
+		960EE2AE296767C20041EDB4 /* FirebaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EE2AD296767C20041EDB4 /* FirebaseViewModel.swift */; };
 		962D36FB2965845E00162B0B /* IphoneIpadFirebaseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962D36FA2965845E00162B0B /* IphoneIpadFirebaseApp.swift */; };
 		962D36FD2965845E00162B0B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962D36FC2965845E00162B0B /* ContentView.swift */; };
 		962D36FF2965846000162B0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 962D36FE2965846000162B0B /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		960EE2A1296739810041EDB4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		960EE2AA296765860041EDB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		960EE2AD296767C20041EDB4 /* FirebaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseViewModel.swift; sourceTree = "<group>"; };
 		962D36F72965845E00162B0B /* IphoneIpadFirebase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IphoneIpadFirebase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		962D36FA2965845E00162B0B /* IphoneIpadFirebaseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IphoneIpadFirebaseApp.swift; sourceTree = "<group>"; };
 		962D36FC2965845E00162B0B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -50,6 +52,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		960EE2AC296767B00041EDB4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				960EE2AD296767C20041EDB4 /* FirebaseViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		962D36EE2965845E00162B0B = {
 			isa = PBXGroup;
 			children = (
@@ -69,6 +79,7 @@
 		962D36F92965845E00162B0B /* IphoneIpadFirebase */ = {
 			isa = PBXGroup;
 			children = (
+				960EE2AC296767B00041EDB4 /* ViewModel */,
 				962D37082965849C00162B0B /* View */,
 				962D36FA2965845E00162B0B /* IphoneIpadFirebaseApp.swift */,
 				960EE2A1296739810041EDB4 /* GoogleService-Info.plist */,
@@ -193,6 +204,7 @@
 				960EE2AB296765860041EDB4 /* AppDelegate.swift in Sources */,
 				962D37112965872400162B0B /* Home.swift in Sources */,
 				962D370B296585C000162B0B /* NavBar.swift in Sources */,
+				960EE2AE296767C20041EDB4 /* FirebaseViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
