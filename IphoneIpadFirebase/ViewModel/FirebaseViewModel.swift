@@ -26,4 +26,19 @@ class FirebaseViewModel : ObservableObject {
             }
         }
     }
+    
+    func createUser(email: String, pass: String, completion: @escaping(_ done: Bool) -> Void) {
+        Auth.auth().createUser(withEmail: email, password: pass) { (user, error) in
+            if user != nil {
+                print ("user registered and logged in")
+                completion(true)
+            } else {
+                if let error = error?.localizedDescription {
+                    print("Error in Firebase while trying to register user")
+                } else {
+                    print ("Error in App while trying to register user")
+                }
+            }
+        }
+    }
 }
