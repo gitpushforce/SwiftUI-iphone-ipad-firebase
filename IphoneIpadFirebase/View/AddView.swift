@@ -13,6 +13,7 @@ struct AddView: View {
     @State private var desc = ""
     var consoles = ["playstation", "xbox", "switch"]
     @State private var platform = "playstation"
+    @StateObject var fbSave = FirebaseViewModel()
     
     var body: some View {
         ZStack {
@@ -29,7 +30,12 @@ struct AddView: View {
                     }
                 }.pickerStyle(.wheel)
                 Button(action: {
-                    
+                    fbSave.save(title: title, desc: desc, platform: platform, cover: "photoAddress") { (done) in
+                        if done {
+                            title = ""
+                            desc = ""
+                        }
+                    }
                 }){
                     Text("Save")
                         .foregroundColor(.black)

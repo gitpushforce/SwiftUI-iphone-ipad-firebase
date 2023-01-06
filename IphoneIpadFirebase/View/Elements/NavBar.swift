@@ -16,7 +16,7 @@ struct NavBar: View {
     
     var body: some View {
         HStack {
-            Text("My game")
+            Text("My games")
                 .font(.title)
                 .bold()
                 .foregroundColor(.white)

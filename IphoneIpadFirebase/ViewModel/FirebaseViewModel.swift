@@ -41,4 +41,25 @@ class FirebaseViewModel : ObservableObject {
             }
         }
     }
+    
+    // DATABASE
+    
+    // SAVE
+    func save(title: String, desc: String, platform: String, cover: String, completion: @escaping (_ done: Bool) -> Void) {
+        let db = Firestore.firestore()
+        let id = UUID().uuidString
+        guard let idUser = Auth.auth().currentUser?.uid else { return }
+        guard let email = Auth.auth().currentUser?.email else { return }
+        
+        let fields : [String:Any] = ["title": title, "desc": desc, "cover": cover, "idUser": idUser, "email": email]
+        db.collection(platform).document(id).setData(fields) {error in
+            if let error = error?.localizedDescription {
+                print("error while trying to save in Firestore", error)
+            } else {
+                print("saved correctly")
+                completion(true)
+            }
+        }
+    }
+    
 }
