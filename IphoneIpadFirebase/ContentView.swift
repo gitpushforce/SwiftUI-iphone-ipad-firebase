@@ -21,8 +21,11 @@ struct ContentView: View {
             } else {
                 Login()
             }
+        }.onAppear {
+            if (UserDefaults.standard.object(forKey: "session")) != nil {
+                loginShow.show = true
+            }
         }
-        
     }
 }
 

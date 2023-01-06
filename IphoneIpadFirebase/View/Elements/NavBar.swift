@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
-
+import Firebase
 struct NavBar: View {
     
     var device = UIDevice.current.userInterfaceIdiom
     @Binding var index : String
     @Binding var menu : Bool
+    @EnvironmentObject var loginShow : FirebaseViewModel
     
     var body: some View {
         HStack {
@@ -27,6 +28,19 @@ struct NavBar: View {
                     ButtonView(index: $index, menu: $menu, title: "Playstation")
                     ButtonView(index: $index, menu: $menu, title: "Xbox")
                     ButtonView(index: $index, menu: $menu, title: "Switch")
+                    Button(action: {
+                        try! Auth.auth().signOut()
+                        UserDefaults.standard.removeObject(forKey: "session")
+                        loginShow.show = false
+                    }){
+                        Text("Sign out")
+                            .font(.title)
+                            .frame(width: 200)
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 10)
+                    }.background(
+                        Capsule().stroke(.white)
+                    )
                 }
             } else {
                 // menu iphone
