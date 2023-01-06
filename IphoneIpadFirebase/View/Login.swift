@@ -53,6 +53,28 @@ struct Login: View {
                     Capsule()
                         .stroke(.white)
                 )
+                
+                Divider()
+                
+                Button(action: {
+                    login.createUser(email: email, pass: pass) { (done) in
+                        if done {
+                            // to save session in UserDefaults.
+                            UserDefaults.standard.set(true, forKey: "session")
+                            loginShow.show.toggle()
+                        }
+                    }
+                }){
+                    Text("Sign up")
+                        .font(.title)
+                        .frame(width: 200)
+                        .foregroundColor(.white)
+                        .padding(.vertical, 10)
+                }.background(
+                    // to make the border of the button look like a rounded white circle we use Capsule and stroke white
+                    Capsule()
+                        .stroke(.white)
+                )
             }.padding(.all)
         }
     }
