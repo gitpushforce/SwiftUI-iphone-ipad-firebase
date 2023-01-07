@@ -16,7 +16,7 @@ struct NavBar: View {
     
     var body: some View {
         HStack {
-            Text("My game")
+            Text("My games")
                 .font(.title)
                 .bold()
                 .foregroundColor(.white)
@@ -28,6 +28,7 @@ struct NavBar: View {
                     ButtonView(index: $index, menu: $menu, title: "Playstation")
                     ButtonView(index: $index, menu: $menu, title: "Xbox")
                     ButtonView(index: $index, menu: $menu, title: "Switch")
+                    ButtonView(index: $index, menu: $menu, title: "Add")
                     Button(action: {
                         try! Auth.auth().signOut()
                         UserDefaults.standard.removeObject(forKey: "session")

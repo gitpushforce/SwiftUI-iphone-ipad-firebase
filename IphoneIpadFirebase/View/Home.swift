@@ -41,10 +41,12 @@ struct Home: View {
                         VStack {
                             Color.green
                         }
-                    } else {
+                    } else if index == "Switch" {
                         VStack {
                             Color.red
                         }
+                    } else {
+                        AddView()
                     }
                 }
             }
@@ -80,11 +82,5 @@ struct Home: View {
                 }
             }
         }.background(.white.opacity(0.9))
-    }
-}
-
-struct Home_Previews: PreviewProvider {
-    static var previews: some View {
-        Home()
     }
 }
