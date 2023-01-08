@@ -23,6 +23,7 @@
 		962D370F296585DC00162B0B /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962D370E296585DC00162B0B /* ButtonView.swift */; };
 		962D37112965872400162B0B /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962D37102965872400162B0B /* Home.swift */; };
 		9633088529686BFC00D6A637 /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9633088429686BFC00D6A637 /* AddView.swift */; };
+		969249B6296B076400230549 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969249B5296B076400230549 /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		962D370E296585DC00162B0B /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		962D37102965872400162B0B /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		9633088429686BFC00D6A637 /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
+		969249B5296B076400230549 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 				962D370A296585C000162B0B /* NavBar.swift */,
 				962D370C296585CE00162B0B /* CardView.swift */,
 				962D370E296585DC00162B0B /* ButtonView.swift */,
+				969249B5296B076400230549 /* ImagePicker.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 				962D370D296585CE00162B0B /* CardView.swift in Sources */,
 				960EE2AB296765860041EDB4 /* AppDelegate.swift in Sources */,
 				962D37112965872400162B0B /* Home.swift in Sources */,
+				969249B6296B076400230549 /* ImagePicker.swift in Sources */,
 				960EE2B029676E0D0041EDB4 /* Login.swift in Sources */,
 				962D370B296585C000162B0B /* NavBar.swift in Sources */,
 				960EE2AE296767C20041EDB4 /* FirebaseViewModel.swift in Sources */,
