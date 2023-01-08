@@ -11,6 +11,7 @@ struct ButtonView: View {
     
     @Binding var index : String
     @Binding var menu : Bool
+    
     var device = UIDevice.current.userInterfaceIdiom
     var title : String
     

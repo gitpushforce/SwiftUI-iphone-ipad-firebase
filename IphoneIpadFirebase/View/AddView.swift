@@ -15,35 +15,78 @@ struct AddView: View {
     @State private var platform = "playstation"
     @StateObject var fbSave = FirebaseViewModel()
     
+    @State private var imageData : Data = .init(capacity: 0)
+    @State private var showMenu = false
+    @State private var imagePicker = false
+    @State private var source : UIImagePickerController.SourceType = .camera
+    
     var body: some View {
-        ZStack {
-            Color.yellow.edgesIgnoringSafeArea(.all)
-            VStack {
-                TextField("Title", text: $title)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                TextEditor(text: $desc)
-                    .frame(height: 200)
-                Picker("Consoles", selection: $platform) {
-                    ForEach(consoles, id:\.self) { item in
-                        Text(item)
-                            .foregroundColor(.black)
-                    }
-                }.pickerStyle(.wheel)
-                Button(action: {
-                    fbSave.save(title: title, desc: desc, platform: platform, cover: "photoAddress") { (done) in
-                        if done {
-                            title = ""
-                            desc = ""
+        NavigationView {
+            ZStack {
+                Color.yellow.edgesIgnoringSafeArea(.all)
+                VStack {
+                    NavigationLink(destination: ImagePicker(show: $imagePicker, image: $imageData, source: source), isActive: $imagePicker) {
+                        EmptyView()
+                    }.navigationBarHidden(true)
+                
+                    TextField("Title", text: $title)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    TextEditor(text: $desc)
+                        .frame(height: 200)
+                    Picker("Consoles", selection: $platform) {
+                        ForEach(consoles, id:\.self) { item in
+                            Text(item)
+                                .foregroundColor(.black)
                         }
+                    }.pickerStyle(.wheel)
+                    
+                    // In order to make it work we have to add the permissions below to Info.plist
+                    // Privacy - Camera Usage Description
+                    // Privacy - Photo Library Usage Description
+                    Button(action: {
+                        showMenu.toggle()
+                    }){
+                        Text("Load image")
+                            .foregroundColor(.black)
+                            .bold()
+                            .font(.largeTitle)
+                    }.actionSheet(isPresented: $showMenu, content: {
+                        ActionSheet(title: Text("Menu"), message: Text("Select an option"), buttons: [
+                                .default(Text("Camera"), action: {
+                                    source = .camera
+                                    imagePicker.toggle()
+                                }),
+                                .default(Text("Library"), action: {
+                                    source = .photoLibrary
+                                    imagePicker.toggle()
+                                }),
+                                .default(Text("Cancel"))
+                                                                                                     ])
+                    })
+                    
+                    if imageData.count != 0 {
+                        Image(uiImage: UIImage(data: imageData)!)
+                            .resizable()
+                            .frame(width: 250, height: 250)
+                            .cornerRadius(15)
                     }
-                }){
-                    Text("Save")
-                        .foregroundColor(.black)
-                        .bold()
-                        .font(.largeTitle)
-                }
-                Spacer()
-            }.padding(.all)
-        }
+                    
+                    Button(action: {
+                        fbSave.save(title: title, desc: desc, platform: platform, cover: "photoAddress") { (done) in
+                            if done {
+                                title = ""
+                                desc = ""
+                            }
+                        }
+                    }){
+                        Text("Save")
+                            .foregroundColor(.black)
+                            .bold()
+                            .font(.largeTitle)
+                    }
+                    Spacer()
+                }.padding(.all)
+            }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
