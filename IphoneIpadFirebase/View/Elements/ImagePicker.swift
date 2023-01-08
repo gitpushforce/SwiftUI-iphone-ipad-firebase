@@ -46,6 +46,5 @@ struct ImagePicker: UIViewControllerRepresentable {
             self.connection.image = data!
             self.connection.show.toggle()
         }
-        
     }
 }
