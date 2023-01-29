@@ -109,4 +109,18 @@ class FirebaseViewModel : ObservableObject {
         }
     }
     
+    // ELIMINAR
+    func delete(index: FirebaseModel, plataform: String) {
+        // eliminar firestore
+        let id = index.id
+        let db = Firestore.firestore()
+        db.collection(plataform).document(id).delete()
+        
+        // eliminar storage
+        let image = index.cover
+        let deleteImage = Storage.storage().reference(forURL: image)
+        deleteImage.delete(completion: nil)
+        
+    }
+    
 }
