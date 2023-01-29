@@ -27,7 +27,7 @@ struct ListView: View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 20), count: getColumns()), spacing: 20) {
                 ForEach(datos.data) { item in
-                    CardView(title: item.title, cover: item.cover)
+                    CardView(title: item.title, cover: item.cover, index: item, platform: platform)
                         .padding(.all)
                 }
             }
