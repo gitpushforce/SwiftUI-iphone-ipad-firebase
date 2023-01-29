@@ -20,16 +20,19 @@ struct ListView: View {
         return (device == .pad) ? 3 : ((device == .phone && width == .regular) ? 3 : 1)
     }
     
-    //@StateObject var datos = FirebaseViewModel()
+    var platform : String
+    @StateObject var datos = FirebaseViewModel()
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 20), count: getColumns()), spacing: 20) {
-                ForEach(1...9, id:\.self) { _ in
-                    CardView()
+                ForEach(datos.data) { item in
+                    CardView(title: item.title, cover: item.cover)
                         .padding(.all)
                 }
             }
+        }.onAppear {
+            datos.getData(platform: platform)
         }
     }
 }

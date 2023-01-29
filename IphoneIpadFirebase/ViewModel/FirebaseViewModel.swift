@@ -12,6 +12,7 @@ import FirebaseStorage
 class FirebaseViewModel : ObservableObject {
     
     @Published var show = false
+    @Published var data = [FirebaseModel]()
     
     func login(email: String, pass: String, completion: @escaping(_ done: Bool) -> Void) {
         Auth.auth().signIn(withEmail: email, password: pass) { (user, error) in
@@ -63,7 +64,7 @@ class FirebaseViewModel : ObservableObject {
                 let id = UUID().uuidString
                 guard let idUser = Auth.auth().currentUser?.uid else { return }
                 guard let email = Auth.auth().currentUser?.email else { return }
-
+                
                 let fields : [String:Any] = ["title": title, "desc": desc, "cover": String(describing: directory), "idUser": idUser, "email": email]
                 db.collection(platform).document(id).setData(fields) {error in
                     if let error = error?.localizedDescription {
@@ -82,10 +83,30 @@ class FirebaseViewModel : ObservableObject {
                     print("fail in app")
                 }
             }
-            
         }
-        
-
+    }
+    
+    func getData(platform: String) {
+        let db = Firestore.firestore()
+        db.collection(platform).addSnapshotListener { (querySnapshot, error) in
+            if let error = error?.localizedDescription {
+                print("error while trying to get data", error)
+            } else {
+                self.data.removeAll()
+                for document in querySnapshot!.documents {
+                    let value = document.data()
+                    let id = document.documentID
+                    let title = value["title"] as? String ?? "no title"
+                    let desc = value["desc"] as? String ?? "no desc"
+                    let cover = value["cover"] as? String ?? "no cover"
+                    
+                    DispatchQueue.main.async {
+                        let regist = FirebaseModel(id: id, title: title, desc: desc, cover: cover)
+                        self.data.append(regist)
+                    }
+                }
+            }
+        }
     }
     
 }

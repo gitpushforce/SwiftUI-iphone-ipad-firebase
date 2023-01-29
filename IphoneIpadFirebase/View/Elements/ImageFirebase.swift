@@ -10,10 +10,10 @@ import SwiftUI
 struct ImageFirebase: View {
     
     let alternativeImage = UIImage(systemName: "photo")
-    @ObservedObject var imageLoader : PortadaViewModel
+    @ObservedObject var imageLoader : CoverViewModel
     
     init(imageUrl: String) {
-        imageLoader = PortadaViewModel(imageUrl: imageUrl)
+        imageLoader = CoverViewModel(imageUrl: imageUrl)
     }
     
     var image : UIImage? {
