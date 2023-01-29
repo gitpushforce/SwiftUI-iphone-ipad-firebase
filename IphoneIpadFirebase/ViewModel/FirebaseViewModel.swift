@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import FirebaseStorage
 
 class FirebaseViewModel : ObservableObject {
     
@@ -45,21 +46,46 @@ class FirebaseViewModel : ObservableObject {
     // DATABASE
     
     // SAVE
-    func save(title: String, desc: String, platform: String, cover: String, completion: @escaping (_ done: Bool) -> Void) {
-        let db = Firestore.firestore()
-        let id = UUID().uuidString
-        guard let idUser = Auth.auth().currentUser?.uid else { return }
-        guard let email = Auth.auth().currentUser?.email else { return }
+    func save(title: String, desc: String, platform: String, cover: Data, completion: @escaping (_ done: Bool) -> Void) {
         
-        let fields : [String:Any] = ["title": title, "desc": desc, "cover": cover, "idUser": idUser, "email": email]
-        db.collection(platform).document(id).setData(fields) {error in
-            if let error = error?.localizedDescription {
-                print("error while trying to save in Firestore", error)
+        let storage = Storage.storage().reference()
+        let nameCover = UUID()
+        let directory = storage.child("images/\(nameCover)")
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/png"
+        
+        directory.putData(cover, metadata: metadata) { data, error in
+            if error == nil {
+                print("image saved")
+                
+                // save text
+                let db = Firestore.firestore()
+                let id = UUID().uuidString
+                guard let idUser = Auth.auth().currentUser?.uid else { return }
+                guard let email = Auth.auth().currentUser?.email else { return }
+
+                let fields : [String:Any] = ["title": title, "desc": desc, "cover": String(describing: directory), "idUser": idUser, "email": email]
+                db.collection(platform).document(id).setData(fields) {error in
+                    if let error = error?.localizedDescription {
+                        print("error while trying to save in Firestore", error)
+                    } else {
+                        print("saved correctly")
+                        completion(true)
+                    }
+                }
+                // finished saving text
+                
             } else {
-                print("saved correctly")
-                completion(true)
+                if let error = error?.localizedDescription {
+                    print("failed trying to upload image", error)
+                } else {
+                    print("fail in app")
+                }
             }
+            
         }
+        
+
     }
     
 }

@@ -69,21 +69,25 @@ struct AddView: View {
                             .resizable()
                             .frame(width: 250, height: 250)
                             .cornerRadius(15)
+                        
+                        
+                        Button(action: {
+                            fbSave.save(title: title, desc: desc, platform: platform, cover: imageData) { (done) in
+                                if done {
+                                    title = ""
+                                    desc = ""
+                                    // this is to clean the image
+                                    imageData = .init(Data(capacity: 0))
+                                }
+                            }
+                        }){
+                            Text("Save")
+                                .foregroundColor(.black)
+                                .bold()
+                                .font(.largeTitle)
+                        }
                     }
                     
-                    Button(action: {
-                        fbSave.save(title: title, desc: desc, platform: platform, cover: "photoAddress") { (done) in
-                            if done {
-                                title = ""
-                                desc = ""
-                            }
-                        }
-                    }){
-                        Text("Save")
-                            .foregroundColor(.black)
-                            .bold()
-                            .font(.largeTitle)
-                    }
                     Spacer()
                 }.padding(.all)
             }
