@@ -20,6 +20,8 @@ struct AddView: View {
     @State private var imagePicker = false
     @State private var source : UIImagePickerController.SourceType = .camera
     
+    @State private var progress = false
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -70,14 +72,15 @@ struct AddView: View {
                             .frame(width: 250, height: 250)
                             .cornerRadius(15)
                         
-                        
                         Button(action: {
+                            progress = true
                             fbSave.save(title: title, desc: desc, platform: platform, cover: imageData) { (done) in
                                 if done {
                                     title = ""
                                     desc = ""
                                     // this is to clean the image
                                     imageData = .init(Data(capacity: 0))
+                                    progress = false
                                 }
                             }
                         }){
@@ -85,6 +88,11 @@ struct AddView: View {
                                 .foregroundColor(.black)
                                 .bold()
                                 .font(.largeTitle)
+                        }
+                        if progress {
+                            Text ("Wait a moment please...")
+                                .foregroundColor(.black)
+                            ProgressView()
                         }
                     }
                     
