@@ -8,23 +8,19 @@
 import SwiftUI
 
 struct CardView: View {
+    
+    var title : String
+    var cover : String
+    
     var body: some View {
         VStack (spacing: 20) {
-            Image("syphonfilter")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-            Text("Syphon Filter")
+            ImageFirebase(imageUrl: cover)
+            Text(title)
                 .font(.title)
                 .bold()
                 .foregroundColor(.black)
         }.padding()
         .background(.white)
         .cornerRadius(20)
-    }
-}
-
-struct CardView_Previews: PreviewProvider {
-    static var previews: some View {
-        CardView()
     }
 }

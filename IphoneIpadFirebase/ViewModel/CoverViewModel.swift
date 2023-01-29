@@ -7,7 +7,7 @@
 
 import Foundation
 import FirebaseStorage
-class PortadaViewModel: ObservableObject {
+class CoverViewModel: ObservableObject {
     
     @Published var data : Data? = nil
     

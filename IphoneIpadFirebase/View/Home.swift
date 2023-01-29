@@ -19,15 +19,11 @@ struct Home: View {
                 NavBar(index: $index, menu: $menu)
                 ZStack {
                     if index == "Playstation" {
-                        
+                        ListView(platform: "playstation")
                     } else if index == "Xbox" {
-                        VStack {
-                            Color.green
-                        }
+                        ListView(platform: "xbox")
                     } else if index == "Switch" {
-                        VStack {
-                            Color.red
-                        }
+                        ListView(platform: "switch")
                     } else {
                         AddView()
                     }
