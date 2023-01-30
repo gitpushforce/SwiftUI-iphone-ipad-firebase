@@ -22,12 +22,18 @@ struct ListView: View {
     
     var platform : String
     @StateObject var datos = FirebaseViewModel()
+    @State private var showEdit = false
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 20), count: getColumns()), spacing: 20) {
                 ForEach(datos.data) { item in
                     CardView(title: item.title, cover: item.cover, index: item, platform: platform)
+                        .onTapGesture {
+                            showEdit.toggle()
+                        }.sheet(isPresented: $showEdit, content: {
+                            EditView(platform: platform, datos: item)
+                        })
                         .padding(.all)
                 }
             }

@@ -123,4 +123,61 @@ class FirebaseViewModel : ObservableObject {
         
     }
     
+    // EDITAR
+    func edit (title: String, desc: String, platform: String, id: String, completion: @escaping (_ done: Bool) -> Void ) {
+        let db = Firestore.firestore()
+        let fields : [String:Any] = ["title": title, "desc": desc]
+        db.collection(platform).document(id).updateData(fields) { error in
+            if let  error = error?.localizedDescription {
+                print ("error while editing", error)
+                
+            } else {
+                print("only text edited")
+                completion(true)
+            }
+        }
+    }
+    
+    // EDIT WITH IMAGE
+    func editWithImage (title: String, desc: String, platform: String, id: String, index: FirebaseModel, cover: Data, completion: @escaping (_ done: Bool) -> Void ) {
+        // ELIMINAR LA IMAGEN
+        let image = index.cover
+        let deleteImage = Storage.storage().reference(forURL: image)
+        deleteImage.delete(completion: nil)
+        
+        // UPLOAD NEW IMAGE
+        let storage = Storage.storage().reference()
+        let nameCover = UUID()
+        let directory = storage.child("images/\(nameCover)")
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/png"
+        
+        directory.putData(cover, metadata: metadata) { data, error in
+            if error == nil {
+                print("new image saved")
+                
+                // editing text
+                let db = Firestore.firestore()
+                let fields : [String:Any] = ["title": title, "desc": desc, "cover": String(describing: directory)]
+                db.collection(platform).document(id).updateData(fields) { error in
+                    if let  error = error?.localizedDescription {
+                        print ("error while editing", error)
+                        
+                    } else {
+                        print("only text edited")
+                        completion(true)
+                    }
+                }
+                // finished editing text
+                
+            } else {
+                if let error = error?.localizedDescription {
+                    print("failed trying to upload image", error)
+                } else {
+                    print("fail in app")
+                }
+            }
+        }
+    }
+    
 }
